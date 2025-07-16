@@ -6,8 +6,8 @@
 #include "bot.h"
 
 int main() {
+    openingAnimation();
     srand((unsigned int)time(NULL));
-    showHomeScreen();
     showMenu();
     return 0;
 }

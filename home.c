@@ -5,16 +5,43 @@
 #include "multiplayer.h"
 #include "bot.h"
 
-void showHomeScreen() {
-    int cycles = 0;
-    while (cycles < 10) {
+void openingAnimation() {
+    for (int k = 0; k < 4; k++) {
         clearScreen();
-        waterfallAnimation();
-        printTitleArt();
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 40; x++) {
+                if ((x / 4 + y / 2 + k) % 2 == 0) {
+                    setColor(12);
+                    printf("X");
+                } else {
+                    setColor(9);
+                    printf("O");
+                }
+            }
+            printf("\n");
+        }
+        setColor(7);
         Sleep(300);
-        cycles++;
     }
+    for (int shift = 20; shift >= 0; shift--) {
+        clearScreen();
+        for (int s = 0; s < shift; s++) printf("\n");
+        setColor(14);
+        printf(" __       __            __                                             \n");
+    printf("|  \\  _  |  \\          |  \\                                            \n");
+    printf("| $$ / \\ | $$  ______  | $$  _______   ______   ______ ____    ______  \n");
+    printf("| $$/  \\| $$ /      \\ | $$ /       \\ /      \\ |      \\    \\  /      \\ \n");
+    printf("| $$  $$$\\ $$|  $$$$$$\\| $$|  $$$$$$$|  $$$$$$\\| $$$$$$\\$$$$\\|  $$$$$$\\\n");
+    printf("| $$ $$\\$$\\$$| $$    $$| $$| $$      | $$  | $$| $$ | $$ | $$| $$    $$\n");
+    printf("| $$$$  \\$$$$| $$$$$$$$| $$| $$_____ | $$__/ $$| $$ | $$ | $$| $$$$$$$$\n");
+    printf("| $$$    \\$$$ \\$$     \\| $$ \\$$     \\ \\$$    $$| $$ | $$ | $$ \\$$     \\\n");
+    printf(" \\$$      \\$$  \\$$$$$$$ \\$$  \\$$$$$$$  \\$$$$$$  \\$$  \\$$  \\$$  \\$$$$$$$\n");
+        setColor(7);
+        Sleep(100);
+    }
+    Sleep(500);
 }
+
 
 void showMenu() {
     int choice;
@@ -47,29 +74,20 @@ void showMenu() {
     printf("Thank you for playing!\n");
 }
 
-void waterfallAnimation() {
-    for (int y = 0; y < 20; y++) {
-        for (int x = 0; x < 40; x++) {
-            if ((x + y) % 6 == 0) {
-                setColor(12); 
-                printf("X");
-            } else if ((x + y + 3) % 6 == 0) {
-                setColor(9); 
-                printf("O");
-            } else {
-                printf(" ");
-            }
-        }
-        setColor(7);
-        printf("\n");
-    }
-}
+
 
 void printTitleArt() {
-    setColor(14); // Yellow
-    printf("\n=============================\n");
-    printf("   SIMPLE TIC TAC TOE (C)   \n");
-    printf("=============================\n\n");
+    setColor(14); 
+    // printf("");
+    printf(" ________  __   ______  ________           ______  ________                     ______  \n");
+    printf("|        \\|  \\ /      \\|        \\         /      \\|        \\                   /      \\ \n");
+    printf(" \\$$$$$$$$ \\$$|  $$$$$$\\\\$$$$$$$$______  |  $$$$$$\\\\$$$$$$$$______    ______  |  $$$$$$\\\n");
+    printf("   | $$   |  \\| $$   \\$$  | $$  |      \\ | $$   \\$$  | $$  /      \\  /      \\ | $$   \\$$\n");
+    printf("   | $$   | $$| $$        | $$   \\$$$$$$\\| $$        | $$ |  $$$$$$\\|  $$$$$$\\| $$      \n");
+    printf("   | $$   | $$| $$   __   | $$  /      $$| $$   __   | $$ | $$  | $$| $$    $$| $$   __ \n");
+    printf("   | $$   | $$| $$__/  \\  | $$ |  $$$$$$$| $$__/  \\  | $$ | $$__/ $$| $$$$$$$$| $$__/  \\\n");
+    printf("   | $$   | $$ \\$$    $$  | $$  \\$$    $$ \\$$    $$  | $$  \\$$    $$ \\$$     \\ \\$$    $$\n");
+    printf("    \\$$    \\$$  \\$$$$$$    \\$$   \\$$$$$$$  \\$$$$$$    \\$$   \\$$$$$$   \\$$$$$$$  \\$$$$$$ \n");
     setColor(7);
 }
 

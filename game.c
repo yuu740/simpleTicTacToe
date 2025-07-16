@@ -9,29 +9,69 @@ char board[BOARD_SIZE][BOARD_SIZE];
 char currentPlayer;
 
 void initializeBoard() {
-    for (int i = 0; i < BOARD_SIZE; i++)
-        for (int j = 0; j < BOARD_SIZE; j++)
+    clearScreen();
+    printTitleArt();
+    printf("\nInitializing board...\n");
+    Sleep(500);
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
             board[i][j] = ' ';
-    currentPlayer = 'X';
+
+            clearScreen();
+            printTitleArt();
+            printf("\n");
+
+            for (int y = 0; y <= i; y++) {
+                for (int x = 0; x < BOARD_SIZE; x++) {
+                    if (y < i || (y == i && x <= j)) {
+                        setColor(8);
+                        printf("   ");
+                    } else {
+                        printf("   ");
+                    }
+                    if (x < 2) printf("|");
+                }
+                printf("\n");
+                if (y < BOARD_SIZE - 1) printf("---|---|---\n");
+            }
+            setColor(7);
+            Sleep(80);
+        }
+    }
+    Sleep(300);
 }
 
 void drawBoard() {
     clearScreen();
     printTitleArt();
     printf("\n");
+
     int cellNumber = 1;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
+            Sleep(100);
+
             if (board[i][j] == ' ') {
+                setColor(7);
                 printf(" %d ", cellNumber);
             } else {
+                if (board[i][j] == 'X') setColor(12);
+                else setColor(9);
                 printf(" %c ", board[i][j]);
             }
-            if (j < 2) printf("|");
+            setColor(7);
+            if (j < 2) {
+                printf("|");
+                Sleep(50);
+            }
             cellNumber++;
         }
         printf("\n");
-        if (i < 2) printf("---|---|---\n");
+        if (i < 2) {
+            printf("---|---|---\n");
+            Sleep(150);
+        }
     }
     printf("\n");
 }
@@ -112,20 +152,48 @@ void playGame(int vsBot, int difficulty) {
             break;
         } else if (checkDraw()) {
             drawBoard();
-            printf("It's a tie!\n");
-            Sleep(1500);
+            tieAnimation();
             break;
         }
         switchPlayer();
     }
 }
 
-void winAnimation(char winner) {
+void printLargeText(const char *text[]) {
     clearScreen();
-    for (int i = 0; i < 5; i++) {
-        printf("\n\n    Player %c Wins!\n", winner);
-        Sleep(500);
+    for (int shift = 20; shift >= 0; shift--) {
         clearScreen();
-        Sleep(300);
+        for (int s = 0; s < shift; s++) printf("\n");
+        setColor(14);
+        for (int i = 0; text[i] != NULL; i++) {
+            printf("%s\n", text[i]);
+        }
+        setColor(7);
+        Sleep(120);
     }
+    Sleep(500);
+}
+
+void winAnimation(char winner) {
+    const char *winTextX[] = {
+        "X WINS!",
+        NULL
+    };
+    const char *winTextO[] = {
+        "O WINS!",
+        NULL
+    };
+    if (winner == 'X') {
+        printLargeText(winTextX);
+    } else {
+        printLargeText(winTextO);
+    }
+}
+
+void tieAnimation() {
+    const char *tieText[] = {
+        "TIE!!!",
+        NULL
+    };
+    printLargeText(tieText);
 }
