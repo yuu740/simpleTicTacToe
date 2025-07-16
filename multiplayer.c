@@ -23,10 +23,14 @@ static void drawBoard() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (board[i][j] == ' ') {
+                setColor(7);
                 printf(" %d ", cellNumber);
             } else {
+                if (board[i][j] == 'X') setColor(12);
+                else setColor(9);
                 printf(" %c ", board[i][j]);
             }
+            setColor(7);
             if (j < 2) printf("|");
             cellNumber++;
         }
@@ -35,6 +39,7 @@ static void drawBoard() {
     }
     printf("\n");
 }
+
 
 static int checkWin() {
     for (int i = 0; i < BOARD_SIZE; i++) {

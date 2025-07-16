@@ -6,5 +6,6 @@ void showMenu();
 void waterfallAnimation();
 void printTitleArt();
 void clearScreen();
+void setColor(int color);
 
 #endif
